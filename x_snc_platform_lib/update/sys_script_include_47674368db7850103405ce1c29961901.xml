@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_snc_platform_lib.DataToolkit</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description>Utilitiy function to retrieve data&#13;
+&#13;
+* getRecord_Tree() : returns the specified record and all the associated reference data. It recursively navigates through the references.</description>
+        <name>DataToolkit</name>
+        <script><![CDATA[var DataToolkit = Class.create();
+DataToolkit.prototype = Object.extendsObject(
+
+	/**
+	* Supports querying single and multiple records 
+	* and requesting:
+	*   - alias 
+	*        - for the table:  
+	*        - for fields.  :  	
+	*   - sorting :  (order_by("field_name"))
+	*       
+	* 
+	* Example:
+	*
+	*	var associations = DataToolkit
+	*		.select(["child.name[name]", "reverse_relation[relationship]", "child.age[age]", "degree_of_relationship"])
+	*		.from('x_snc_usms_fts_associations')
+	*		.where('parent', '=', case_record.fugitive)
+	*		.order_by("degree_of_relationship")
+	*		.getAll();
+	*/
+
+    global.AbstractAjaxProcessor, {
+
+		
+		select: function (field_list) {
+			this.field_list = field_list;
+			return this;
+		},
+		from: function (table_name) {
+			this.table_name = table_name;
+			return this;
+		},
+		where: function (field_name, condition, field_value) {
+			this.where_field_name = field_name;
+			this.condition = condition;
+			this.where_field_value = field_value;
+			return this;
+		},	
+		order_by: function (field_name) {
+			this.order_by = field_name;
+			return this;
+		},		
+		_buildGlideRecord : function () {
+			var rec_gr = new GlideRecord(this.table_name);
+			
+			if (this.where_field_name) {
+				rec_gr.addQuery(this.where_field_name, this.condition, this.where_field_value);
+			}
+			if (this.order_by) {
+				//rec_gr.orderBy('child.age');
+			}
+			return rec_gr;
+		},
+		
+		_getSingleValue : function (table_name, field_name, where_field_name, where_field_value) {
+			var record_gr = new GlideRecord(table_name);
+            record_gr.addQuery(where_field_name, where_field_value);
+			record_gr.setLimit(1);
+			record_gr.query();
+			var result = {};
+			this.log ( "   SINGLE VALUE");
+			this.log ( "     table_name =  " + table_name);
+			this.log ( "     field_name =  " + field_name);
+			this.log ( "     where " + where_field_name + " = " + where_field_value);
+
+			if (record_gr.next()) {
+				return this._getValue(record_gr, field_name);
+			}
+			return result;
+		},
+			
+
+		_getValue : function (record_gr, field_name) {
+			var element = record_gr.getElement(field_name);
+			var field_type = element.getED().getInternalType();				
+			var field_value = record_gr.getValue(field_name);
+			this.log ( "     field_type =  " + field_type);
+			var result = {};
+			if (field_type == "integer") {
+				result = parseInt(field_value);
+			}
+			if (field_type == "user_image") {
+				result = this.CreateLinkForObject (field_value);
+			}
+			else {
+				result = field_value;
+			}
+			return result;
+		},
+
+		
+		_buildRecord : function (record_gr) {
+			var record = {};
+			this.log ( "BUILD RECORD");
+
+			for (var i=0; i < this.field_list.length; i++) {
+				var field_requested = this.field_list[i];					
+                var field_parts = field_requested.split('.');
+				var field_name     = field_parts[0];
+				var field_ref_name = field_parts[1];
+				
+				/* Column ALIAS between [] */
+                var alias = "";
+                var string_with_alias = (field_ref_name) ? field_ref_name : field_name;
+                var matches = string_with_alias.match(/\[(.*?)\]/);
+                if (matches) {
+                   alias = matches[1];
+					if (field_ref_name) {
+						field_ref_name = field_ref_name.substring( 0, field_ref_name.indexOf("["));
+					}
+					else {			
+						field_name = field_name.substring( 0, field_name.indexOf("["));
+					}
+                }				
+				field_value = record_gr.getValue(field_name);
+				
+				var element = record_gr.getElement(field_name);
+				if (!element) {
+					//return "error: field '" + field_name + "' does not exist";
+				}				
+				
+				var field_type = element.getED().getInternalType();
+				
+				
+				this.log ("");
+				this.log ( " field_requested  = " + field_requested);
+				this.log ( "    field_parts    = " + field_parts);
+				this.log ( "    field_name     = " + field_name);				
+				this.log ( "    field_ref_name = " + field_ref_name);					
+				this.log ( "    ALIAS          = " + alias);					
+				this.log ( "    field_type     = " + field_type);					
+					
+				// can be a regular value or the sys_id of a reference field
+				// only the regular value is requested (field ex: "first_name" or user (sys_id)
+				if (field_parts.length == 1) {
+					field_value = this._getValue(record_gr, field_name);
+				}
+				else {
+					// reference field ex: "table.location"		
+					var record_sys_id = field_value;
+                    var ref_table_name = element.getReferenceTable();
+					var where_field_name = "sys_id";
+					var where_field_value = record_sys_id;
+					field_value = this._getSingleValue (
+						ref_table_name, field_ref_name, where_field_name, where_field_value);
+				}
+				this.log ( "  => field_value    = " + field_value);
+			
+				if (alias) {
+					record[alias] = field_value;
+				}
+				else {
+					record[field_name] = field_value;
+				}
+			}
+			return record;
+		},
+
+		
+		getOne: function () {
+			this.log ( "getOne");
+
+			var rec_gr = this._buildGlideRecord();
+			rec_gr.setLimit(1);
+			rec_gr.query();
+			var result = {};
+			if (rec_gr.next()) {
+				result = this._buildRecord (rec_gr);
+			}
+			return result;
+		},
+		
+		getAll: function () {
+			var rec_gr = this._buildGlideRecord();
+			rec_gr.query();
+
+			var result_list = [];
+			while (rec_gr.next()) {
+				var record = this._buildRecord (rec_gr);
+				result_list.push(record);
+			}
+			
+			this.log ( "ORDER BY  =  " + JSON.stringify(this.order_by));
+			if (this._hasValue(this.order_by)) {
+				this._sort (result_list, this.order_by);
+			}
+//			this._reset();
+			return result_list;
+		},
+		
+		_hasValue : function (value) {
+			return (value !== null && value !== '');
+        },
+	
+
+        /**
+         * 
+         * This returns an array (if in scope) 
+         * or an ArrayList (if in global) of all of the elements on the record. 
+         * You can then loop through the array (in scope) or iterate through it (in global) 
+         * to get things like the label, field name, and value.
+         *		 
+		 * Example:
+		 *
+		 *  var tree_fields = {
+               "x_snc_usms_fts_fugitive_case": ['number', 'charge', 'state', 'priority', 'fugitive'],
+               "x_snc_usms_fts_poi"          : ['name', 'age', 'eyes', 'location']
+             };
+		 *
+		 *
+         */
+        getRecord_Tree: function (table_name, find_by_field_name, find_by_field_value, tree_fields, join) {
+
+            if (!table_name || !find_by_field_name) {
+                return "error: missing parameters";
+            }
+
+            var record_gr = new GlideRecord(table_name);
+            record_gr.addQuery(find_by_field_name, find_by_field_value);
+			
+			var order_by = tree_fields["order"];
+			if (order_by) {
+				var field_name = order_by.field_name;
+				var direction = order_by.direction;
+				if (direction == "DESC") record_gr.orderByDesc(field_name); 
+				if (direction == "ASC") record_gr.orderBy(field_name); 
+			}	
+			
+            record_gr.query();
+            var table_label = record_gr.getClassDisplayValue();
+            var row_count = record_gr.getRowCount();
+            this.log("# of records : " + row_count);
+
+            // RECORD EXISTS ?
+            if (row_count == 0) {
+                return this.build_error_msg(table_label, find_by_field_name, find_by_field_value);
+            }
+
+            // FIELDS
+            var record_list = [];
+            while (record_gr.next()) {
+                var record = this.getRecord_Fields(record_gr, table_name, tree_fields);
+                record_list.push(record);
+            }
+            return record_list;
+        },
+
+        /**
+         *  Returns all the fields for the specified record
+         * @param {*} record_gr 
+         * @param {*} tree_fields 
+         */
+        getRecord_Fields: function (record_gr, table_name, tree_fields, join) {
+            var fields_to_retrieve = tree_fields[table_name];
+
+            var record = {};
+            var i = 0,
+                element, field_name, field_type, field_value, included;
+            var element_list = record_gr.getElements();
+
+            // GLOBAL SCOPE 
+            if (typeof element_list.size != 'undefined') {
+                // NOT FINISHED for GLOBAL SCOPE
+                // DON'T WORK IN GLOBAL
+                for (; i < element_list.size(); i++) {
+                    element = element_list.get(i);
+                    field_name = element.getName();
+                    included = this.array_includes(fields_to_retrieve, field_name);
+                    if (included) {
+                        field_value = record_gr.getValue(field_name);
+                        this.log("Function getRecord NOT FINISHED for GLOBAL SCOPE ");
+                        record[field_name] = field_value;
+                    }
+                }
+                return record;
+            }
+            // IN SCOPED APP: so loop over the array
+            for (; i < element_list.length; i++) {
+                element = element_list[i];
+                field_name = element.getName();
+                included = this.array_includes(fields_to_retrieve, field_name);
+                if (!included) {
+                    continue;
+                }
+                field_type = element.getED().getInternalType();
+
+                /* 
+                 * Regular field  
+                 */
+                if (field_type != 'reference') {
+                    field_value = record_gr.getValue(field_name);
+                    record[field_name] = field_value;
+                    continue;
+                }
+                /* 
+                 * REFERENCE FIELDS 
+                 */
+                // For standard reference ields such as location we simply get the value 
+                if (field_name == 'location') {
+                    field_value = record_gr.getDisplayValue(field_name);
+                    record[field_name] = field_value;
+                } else {
+                    var ref_table = record_gr[field_name].getReferenceTable();
+                    field_value = record_gr.getValue(field_name);
+                    this.log("GET fields for reference field: " + field_name + ": " + field_value + " / " + field_type + "/ " + ref_table);
+                    if (join != null) {
+                        this.log("JOIN ");
+//                        record[field_name] =							this.getR
+
+                    } else {
+                        //RECURSIVE  
+                        record[field_name] =
+                            this.getRecord_Tree(ref_table, "sys_id", field_value, tree_fields);
+                    }
+                }
+            }
+            return record;
+        },
+
+
+
+        // ARRAY INCLUDES 
+        array_includes: function (array, value) {
+            if (!array || !value) {
+                return false;
+            }
+            return (array.indexOf(value) > -1);
+        },
+
+        build_error_msg: function (table_label, find_by_field_name, find_by_field_value) {
+            return {
+                "status_code": "error",
+                "status_message": "record " +
+                    table_label + " with " +
+                    find_by_field_name + " = " + find_by_field_value +
+                    "not found"
+            };
+        },
+		
+		// SORT 
+        _sort: function (array, field_name) {
+			array.sort (
+				function (a, b) {
+					if (a[field_name] < b[field_name]){
+						return -1;
+					} else if (a[field_name] > b[field_name]){
+						return 1;
+					} else {
+						return 0;   
+					}
+				}
+			);     
+		},
+		
+		
+		
+        // Clean up the global variables
+        _reset: function () {
+            this.alias = null;
+			this.order_by = null;
+        },
+		
+        // function acting as a global variable
+        DEBUG: function () {
+            return false;
+        },
+        log: function (msg) {
+            if (this.DEBUG()) {
+               // gs.addInfoMessage("DataToolkit: " + msg);
+				gs.info("" + msg);
+            }
+        },
+
+		/*
+		generate a link if the field is of type image
+		*/
+		CreateLinkForObject: function (sys_id){
+			var URI = gs.getProperty('glide.servlet.uri');
+			//var link = gs.generateURL(table_name, sys_id);
+			return URI + sys_id + ".iix";
+       }
+    }
+);]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-05-12 18:01:54</sys_created_on>
+        <sys_id>47674368db7850103405ce1c29961901</sys_id>
+        <sys_mod_count>159</sys_mod_count>
+        <sys_name>DataToolkit</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>sys_script_include_47674368db7850103405ce1c29961901</sys_update_name>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-15 04:46:29</sys_updated_on>
+    </sys_script_include>
+</record_update>

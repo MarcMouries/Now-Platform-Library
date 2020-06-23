@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_dependency_js_include">
+    <m2m_sp_dependency_js_include action="DELETE">
+        <order>100</order>
+        <sp_dependency display_value="Network Tree">755ded61db7498103405ce1c29961922</sp_dependency>
+        <sp_js_include display_value="https://marcmouries.github.io/Network-Tree/NetworkTree.css">d23ee8b3db8d14143405ce1c29961907</sp_js_include>
+        <sys_class_name>m2m_sp_dependency_js_include</sys_class_name>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-06-03 19:11:56</sys_created_on>
+        <sys_id>634ea8b3db8d14143405ce1c299619f5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Network Tree.https://marcmouries.github.io/Network-Tree/NetworkTree.css</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>m2m_sp_dependency_js_include_634ea8b3db8d14143405ce1c299619f5</sys_update_name>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-03 19:11:56</sys_updated_on>
+    </m2m_sp_dependency_js_include>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</application>
+        <file_path/>
+        <instance_id>eb625afedbbf0c1407072f17d49619ce</instance_id>
+        <instance_name>dojopsdemo</instance_name>
+        <name>m2m_sp_dependency_js_include_634ea8b3db8d14143405ce1c299619f5</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_dependency_js_include"><m2m_sp_dependency_js_include action="INSERT_OR_UPDATE"><order>100</order><sp_dependency display_value="Network Tree">755ded61db7498103405ce1c29961922</sp_dependency><sp_js_include display_value="https://marcmouries.github.io/Network-Tree/NetworkTree.css">d23ee8b3db8d14143405ce1c29961907</sp_js_include><sys_class_name>m2m_sp_dependency_js_include</sys_class_name><sys_created_by>marc.mouries</sys_created_by><sys_created_on>2020-06-03 19:11:56</sys_created_on><sys_id>634ea8b3db8d14143405ce1c299619f5</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Network Tree.https://marcmouries.github.io/Network-Tree/NetworkTree.css</sys_name><sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package><sys_policy/><sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope><sys_update_name>m2m_sp_dependency_js_include_634ea8b3db8d14143405ce1c299619f5</sys_update_name><sys_updated_by>marc.mouries</sys_updated_by><sys_updated_on>2020-06-03 19:11:56</sys_updated_on></m2m_sp_dependency_js_include></record_update>]]></payload>
+        <payload_hash>-1308756457</payload_hash>
+        <record_name>Network Tree.https://marcmouries.github.io/Network-Tree/NetworkTree.css</record_name>
+        <reverted_from/>
+        <source>0749f6a4dbf450103405ce1c2996192e</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-06-03 19:11:56</sys_created_on>
+        <sys_id>e74ea8b3db8d14143405ce1c299619f7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1727b98e1470000001</sys_recorded_at>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-03 19:11:56</sys_updated_on>
+        <type>Dependency JS Includes</type>
+        <update_guid>ef4ea8b36e8d141474b6c39f7a2018f6</update_guid>
+        <update_guid_history>ef4ea8b36e8d141474b6c39f7a2018f6:-1308756457</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Network Tree.https://marcmouries.github.io/Network-Tree/NetworkTree.css">e490b4f7db8d14143405ce1c2996193d</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-06-03 19:21:49</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_dependency_js_include">m2m_sp_dependency_js_include</sys_db_object>
+        <sys_id>74344d2a037d45fa8170e038dd9904a4</sys_id>
+        <sys_metadata>634ea8b3db8d14143405ce1c299619f5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Network Tree.https://marcmouries.github.io/Network-Tree/NetworkTree.css</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_scope_delete display_value="">83502ed4decd47d1a51ee9d77a6ba9d1</sys_scope_delete>
+        <sys_update_name>m2m_sp_dependency_js_include_634ea8b3db8d14143405ce1c299619f5</sys_update_name>
+        <sys_update_version display_value="m2m_sp_dependency_js_include_634ea8b3db8d14143405ce1c299619f5">e74ea8b3db8d14143405ce1c299619f7</sys_update_version>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-03 19:21:49</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

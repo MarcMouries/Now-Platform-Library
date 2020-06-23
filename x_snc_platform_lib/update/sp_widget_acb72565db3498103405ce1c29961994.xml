@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+	var c = this;
+	
+	
+        var tree_data =
+        {
+            name: 'root',
+            children: [
+                { name: 'A' },
+                { name: 'B' },
+                { name: 'C' },
+                { name: 'D' }
+            ]
+        };	
+	
+    var networkTree = new NetworkTree();
+    networkTree
+       .display(tree_data)
+       .inside(document.getElementById("chart"))
+       .show();
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>mm_network_tree</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>mm Network Tree</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	
+	
+/*	var table_name = 'x_snc_usms_fts_associations';
+	var find_by_field_name = 'parent';
+	var find_by_field_value = '80929e541bf45c50f76f20252a4bcb77';
+  var field_list = ['parent', 'reverse_relation', 'child'];
+
+	
+  var DataToolkit = new x_snc_platform_lib.DataToolkit();
+		
+	var caseData = DataToolkit.get_Data(table_name, find_by_field_name, find_by_field_value, field_list);
+	
+	//table_name, 'number', record_number, tree_fields);
+  //gs.addInfoMessage(JSON.stringify(caseData));
+	
+	
+	var associations = [
+		{"parent":"80929e541bf45c50f76f20252a4bcb77","reverse_relation":"Wife","child":"4f71dbe01bf01090f76f20252a4bcb4e"},
+		{"parent":"80929e541bf45c50f76f20252a4bcb77","reverse_relation":"Son","child":"34911fe01bf01090f76f20252a4bcb87"},{"parent":"80929e541bf45c50f76f20252a4bcb77","reverse_relation":"Cousin","child":"0f73d3281bf01090f76f20252a4bcb23"},{"parent":"80929e541bf45c50f76f20252a4bcb77","reverse_relation":"Daughter","child":"efb1d3241bf01090f76f20252a4bcbf3"}];
+	*/
+
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-05-15 13:20:39</sys_created_on>
+        <sys_id>acb72565db3498103405ce1c29961994</sys_id>
+        <sys_mod_count>26</sys_mod_count>
+        <sys_name>mm Network Tree</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>sp_widget_acb72565db3498103405ce1c29961994</sys_update_name>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-03 19:19:22</sys_updated_on>
+        <template><![CDATA[<div id="chart"></div>
+]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_widget_dependency">
+    <m2m_sp_widget_dependency action="DELETE">
+        <sp_dependency display_value="Network Tree">755ded61db7498103405ce1c29961922</sp_dependency>
+        <sp_widget display_value="Copy of mm Network Tree">de7a2779db1198543405ce1c2996198d</sp_widget>
+        <sys_class_name>m2m_sp_widget_dependency</sys_class_name>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-06-10 14:01:54</sys_created_on>
+        <sys_id>1e7a2779db1198543405ce1c29961990</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Network Tree.Copy of mm Network Tree</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>m2m_sp_widget_dependency_1e7a2779db1198543405ce1c29961990</sys_update_name>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-10 14:01:54</sys_updated_on>
+    </m2m_sp_widget_dependency>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</application>
+        <file_path/>
+        <instance_id>eb625afedbbf0c1407072f17d49619ce</instance_id>
+        <instance_name>dojopsdemo</instance_name>
+        <name>m2m_sp_widget_dependency_1e7a2779db1198543405ce1c29961990</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_widget_dependency"><m2m_sp_widget_dependency action="INSERT_OR_UPDATE"><sp_dependency display_value="Network Tree">755ded61db7498103405ce1c29961922</sp_dependency><sp_widget display_value="Copy of mm Network Tree">de7a2779db1198543405ce1c2996198d</sp_widget><sys_class_name>m2m_sp_widget_dependency</sys_class_name><sys_created_by>marc.mouries</sys_created_by><sys_created_on>2020-06-10 14:01:54</sys_created_on><sys_id>1e7a2779db1198543405ce1c29961990</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Network Tree.Copy of mm Network Tree</sys_name><sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package><sys_policy/><sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope><sys_update_name>m2m_sp_widget_dependency_1e7a2779db1198543405ce1c29961990</sys_update_name><sys_updated_by>marc.mouries</sys_updated_by><sys_updated_on>2020-06-10 14:01:54</sys_updated_on></m2m_sp_widget_dependency></record_update>]]></payload>
+        <payload_hash>-1682227054</payload_hash>
+        <record_name>Network Tree.Copy of mm Network Tree</record_name>
+        <reverted_from/>
+        <source>0749f6a4dbf450103405ce1c2996192e</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-06-10 14:01:54</sys_created_on>
+        <sys_id>1a7a2779db1198543405ce1c29961993</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>1729e898ce10000001</sys_recorded_at>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-10 14:01:54</sys_updated_on>
+        <type>Widget Dependency</type>
+        <update_guid>127a2779e011985401b0cfb8382e1693</update_guid>
+        <update_guid_history>127a2779e011985401b0cfb8382e1693:-1682227054</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Network Tree.Copy of mm Network Tree">cd444c86db1598543405ce1c2996192d</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-06-10 15:54:35</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_widget_dependency">m2m_sp_widget_dependency</sys_db_object>
+        <sys_id>15b9668e74e845d3906d30c47f468291</sys_id>
+        <sys_metadata>1e7a2779db1198543405ce1c29961990</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Network Tree.Copy of mm Network Tree</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_scope_delete display_value="">83502ed4decd47d1a51ee9d77a6ba9d1</sys_scope_delete>
+        <sys_update_name>m2m_sp_widget_dependency_1e7a2779db1198543405ce1c29961990</sys_update_name>
+        <sys_update_version display_value="m2m_sp_widget_dependency_1e7a2779db1198543405ce1c29961990">1a7a2779db1198543405ce1c29961993</sys_update_version>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-10 15:54:35</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

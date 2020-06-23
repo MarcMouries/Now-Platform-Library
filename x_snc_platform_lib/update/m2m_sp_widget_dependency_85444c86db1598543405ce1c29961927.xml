@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_widget_dependency">
+    <m2m_sp_widget_dependency action="INSERT_OR_UPDATE">
+        <sp_dependency display_value="Network Treebox">003ceb3ddb1198543405ce1c29961945</sp_dependency>
+        <sp_widget display_value="mm Treebox">de7a2779db1198543405ce1c2996198d</sp_widget>
+        <sys_class_name>m2m_sp_widget_dependency</sys_class_name>
+        <sys_created_by>marc.mouries</sys_created_by>
+        <sys_created_on>2020-06-10 15:54:35</sys_created_on>
+        <sys_id>85444c86db1598543405ce1c29961927</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Network Treebox.mm Treebox</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>m2m_sp_widget_dependency_85444c86db1598543405ce1c29961927</sys_update_name>
+        <sys_updated_by>marc.mouries</sys_updated_by>
+        <sys_updated_on>2020-06-10 15:54:35</sys_updated_on>
+    </m2m_sp_widget_dependency>
+</record_update>
