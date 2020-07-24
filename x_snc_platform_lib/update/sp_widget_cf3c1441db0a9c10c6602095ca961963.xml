@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, spUtil) {
+  /* widget controller */
+  var c = this;
+	
+	c.disposition = function(question, value){
+		c.server.get({
+			op: 'disposition',
+			sys_id: question.sys_id,
+			status: value
+		}).then(function(response){
+			if(response && response.data){
+				c.data = response.data;
+			}
+		});
+	};
+	
+	spUtil.recordWatch($scope, c.data.case_table_name, 'sys_id='+c.data.case_id, function(response){
+		c.server.update();
+	});
+	spUtil.recordWatch($scope, 'x_snc_eipm_checklist_item', 'checklist.task='+c.data.case_id, function(response){
+		c.server.update();
+	});
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panel-body {&#13;
+    padding-top: 0px;&#13;
+}&#13;
+.questions {&#13;
+  .question {&#13;
+    display: flex;&#13;
+    margin: 15px 0;&#13;
+    font-size : $text_normal_font_size;&#13;
+&#13;
+    &gt; div {&#13;
+      flex-grow: 1;&#13;
+      flex-basis: 0;&#13;
+    }&#13;
+    &#13;
+     .question-label {&#13;
+        display: flex;&#13;
+        align-items: center;&#13;
+      }&#13;
+    &#13;
+    &#13;
+    .question-response {&#13;
+      justify-content: flex-end;&#13;
+      display: flex;&#13;
+      align-items: center;&#13;
+    }&#13;
+&#13;
+&#13;
+    button {&#13;
+      margin-left: 5px;&#13;
+      background-color: transparent;&#13;
+      border: 1px solid;&#13;
+      font-size : $text_normal_font_size;&#13;
+&#13;
+      &amp;.btn-success {&#13;
+        color: $brand-success;&#13;
+        border-color: $brand-success;&#13;
+        &#13;
+        &amp;.active{&#13;
+          color: #fff;&#13;
+          background-color: $brand-success;&#13;
+        }&#13;
+      }&#13;
+      &amp;.btn-danger {&#13;
+        color: $brand-danger;&#13;
+        border-color: $brand-danger;&#13;
+        &#13;
+        &amp;.active{&#13;
+          color: #fff;&#13;
+          background-color: $brand-danger;&#13;
+        }&#13;
+      }&#13;
+    }&#13;
+  }&#13;
+&#13;
+  .question:last-child {&#13;
+    margin-bottom: 0;&#13;
+  }&#13;
+}&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>pl-task-checklist</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>PL Task Checklist</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+	var checklist_table = "x_snc_eipm_checklist";
+    var checklist_items_table = "x_snc_eipm_checklist_item";
+	
+    /* populate the 'data' object */
+    /* e.g., data.table = $sp.getValue('table'); */
+	
+	if(input && input.op == "disposition"){
+		var checklistItemGr = new GlideRecord(checklist_items_table);
+		if(checklistItemGr.get(input.sys_id)){
+			checklistItemGr.setValue('status', input.status);
+			checklistItemGr.update();
+		}
+	}
+
+    data.case_table_name = $sp.getParameter('table') || "x_snc_eipm_audit";
+    data.case_id = $sp.getParameter('sys_id') || "daf995a6dba9941084c150e4e29619b7"; // AUD0001006 
+    //	var case_id =  "7ede83fcdb6d9010c6602095ca96197d";// AUD0001002 
+
+
+
+    // GET CURRENT STAGE 
+    var case_gr = new GlideRecord(data.case_table_name);
+    case_gr.addQuery('sys_id', data.case_id);
+    case_gr.query();
+    if (case_gr.next()) {
+        data.current_stage = case_gr.getValue('stage');
+    } else {
+        return;
+    }
+
+    // GET QUESTIONS
+    
+
+    data.question_list = [];
+    var checklist_items_gr = new GlideRecord(checklist_items_table);
+    checklist_items_gr.addQuery('checklist.task', data.case_id);
+    checklist_items_gr.addQuery('checklist.stage', data.current_stage);
+    checklist_items_gr.query();
+
+    data.choice_list = null;
+
+    while (checklist_items_gr.next()) {
+        var question = {};
+        question.label = checklist_items_gr.getValue('short_description');
+        question.sys_id = checklist_items_gr.getValue('sys_id');
+        question.value = checklist_items_gr.getValue('status');
+        data.question_list.push(question);
+    }
+
+	if(data.question_list.length){
+		populateChoiceList(checklist_items_table);
+	}
+
+
+    function populateChoiceList(checklist_items_table) {
+        data.choice_list = [];
+        var choicesGr = new GlideRecord('sys_choice');
+        choicesGr.addQuery('name', checklist_items_table);
+        choicesGr.addQuery('element', 'status');
+        choicesGr.addQuery('inactive', false);
+        choicesGr.orderBy('sequence');
+        choicesGr.query();
+        while (choicesGr.next()) {
+            data.choice_list.push({
+                sys_id: choicesGr.getValue('sys_id'),
+                label: choicesGr.getValue('label'),
+                value: choicesGr.getValue('value')
+            });
+        }
+    }
+
+
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>Marc.Mouries</sys_created_by>
+        <sys_created_on>2020-07-14 21:52:28</sys_created_on>
+        <sys_id>cf3c1441db0a9c10c6602095ca961963</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>PL Task Checklist</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>sp_widget_cf3c1441db0a9c10c6602095ca961963</sys_update_name>
+        <sys_updated_by>Marc.Mouries</sys_updated_by>
+        <sys_updated_on>2020-07-14 22:19:17</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-{{::c.options.color}}" ng-if="c.data && c.data.current_stage">
+  <div class="panel-heading">
+    <span class="panel-title">Checklist</span>
+  </div>
+  <div class="questions panel-body">
+    <div class="alert alert-warning" ng-if="c.data.question_list.length === 0">${There are no questions for this stage}</div>
+    <div class="question" ng-repeat="question in c.data.question_list">
+      <div class="question-label">{{question.label}}</div>
+      <div class="question-action">
+          <button class="btn " ng-class="{'btn-success':choice.value=='pass', 'btn-danger':choice.value=='fail', 'active':choice.value==question.value}"
+                  ng-click="c.disposition(question, choice.value)"
+                   ng-repeat="choice in c.data.choice_list">
+               {{choice.label}}
+          </button>
+     </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

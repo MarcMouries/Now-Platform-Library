@@ -16,7 +16,7 @@
         <sys_updated_by>marc.mouries</sys_updated_by>
         <sys_updated_on>2020-06-12 01:06:03</sys_updated_on>
         <target_name>x_snc_usms_fts_known_addresses</target_name>
-        <target_scope display_value="USMS FTS">4d0033021bf78810feab0d81ec4bcb66</target_scope>
+        <target_scope display_value="">4d0033021bf78810feab0d81ec4bcb66</target_scope>
         <target_type>sys_db_object</target_type>
     </sys_scope_privilege>
 </record_update>

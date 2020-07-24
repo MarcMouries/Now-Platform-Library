@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element label="Sample Related List" max_length="40" name="x_snc_platform_lib_sample_related_list" sizeclass="3" type="collection">
+        <element label="Description" max_length="50" name="description" type="string"/>
+        <element label="Task" max_length="32" name="task" reference="task" type="reference"/>
+        <index name="index">
+            <element name="task"/>
+        </index>
+    </element>
+</database>

@@ -41,7 +41,7 @@
         <update_guid_history>127a2779e011985401b0cfb8382e1693:-1682227054</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Network Tree.Copy of mm Network Tree">cd444c86db1598543405ce1c2996192d</sys_audit_delete>
+        <sys_audit_delete display_value="">cd444c86db1598543405ce1c2996192d</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>marc.mouries</sys_created_by>
         <sys_created_on>2020-06-10 15:54:35</sys_created_on>

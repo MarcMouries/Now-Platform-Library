@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_snc_platform_lib.ProcessFlow</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>ProcessFlow</name>
+        <script><![CDATA[var ProcessFlow = Class.create();
+ProcessFlow.prototype = {
+    initialize: function(taskGR) {
+		this.taskGR = taskGR;
+    },
+	
+	loadStagesForTask: function(taskGR) {
+		taskGR = taskGR || this.taskGR;
+		var stages = [];
+		
+		var processFlowGR = this.getProcessFlowGR(taskGR);
+		
+		var foundCurrent = false;
+		
+		while (processFlowGR.next()) {
+			var stageData = {
+				sys_id: processFlowGR.getUniqueValue(),
+				value: processFlowGR.name.toString(),
+				label: processFlowGR.label.getDisplayValue(),
+				description: processFlowGR.description.getDisplayValue()
+			};
+			
+			var isCurrent = GlideFilter.checkRecord(taskGR, processFlowGR.condition.toString());
+			
+			if (isCurrent) {
+				stageData.state = 'current';
+				foundCurrent = true;
+			} else if (foundCurrent) {
+				stageData.state = 'future';
+			} else {
+				stageData.state = 'past';
+			}
+			
+			stages.push(stageData);
+		}
+		
+		// If we never saw a "current" stage, all stages will be marked as "past", in this case, go and flip them all to "future"
+		var numberOfPastStages = stages.filter(function(stage) { return stage.state == 'past'; }).length;
+		var areAllInPast = stages.length == numberOfPastStages;
+		
+		if (areAllInPast) {
+			stages = stages.map(function(stage) {
+				stage.state = 'future';
+				return stage;
+			});
+		}
+		
+		return stages;
+	},
+	
+	getProcessFlowGR: function(taskGR) {
+		var processFlowGR = new GlideRecord('sys_process_flow');
+		processFlowGR.addQuery('table', taskGR.getRecordClassName());
+		processFlowGR.addQuery('active', true);
+		processFlowGR.orderBy('order');
+		processFlowGR.query();
+		
+		return processFlowGR;
+	},
+	
+	toObject: function() {
+		return {
+			table: this.taskGR.getRecordClassName(),
+			sys_id: this.taskGR.getUniqueValue(),
+			stages: this.loadStagesForTask()
+		};
+	},
+
+    type: 'ProcessFlow'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>Marc.Mouries</sys_created_by>
+        <sys_created_on>2020-07-15 16:11:22</sys_created_on>
+        <sys_id>5757d051db82dc10c6602095ca9619a0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ProcessFlow</sys_name>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>sys_script_include_5757d051db82dc10c6602095ca9619a0</sys_update_name>
+        <sys_updated_by>Marc.Mouries</sys_updated_by>
+        <sys_updated_on>2020-07-15 16:11:22</sys_updated_on>
+    </sys_script_include>
+</record_update>

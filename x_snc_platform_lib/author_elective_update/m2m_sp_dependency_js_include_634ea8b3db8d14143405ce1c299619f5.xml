@@ -42,7 +42,7 @@
         <update_guid_history>ef4ea8b36e8d141474b6c39f7a2018f6:-1308756457</update_guid_history>
     </sys_update_version>
     <sys_metadata_delete action="INSERT_OR_UPDATE">
-        <sys_audit_delete display_value="Network Tree.https://marcmouries.github.io/Network-Tree/NetworkTree.css">e490b4f7db8d14143405ce1c2996193d</sys_audit_delete>
+        <sys_audit_delete display_value="">e490b4f7db8d14143405ce1c2996193d</sys_audit_delete>
         <sys_class_name>sys_metadata_delete</sys_class_name>
         <sys_created_by>marc.mouries</sys_created_by>
         <sys_created_on>2020-06-03 19:21:49</sys_created_on>

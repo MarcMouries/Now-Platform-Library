@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_vlist">
+    <sp_instance_vlist action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <display_field/>
+        <field_list/>
+        <filter/>
+        <glyph/>
+        <id/>
+        <maximum_entries>5</maximum_entries>
+        <order>1</order>
+        <order_by/>
+        <order_direction>asc</order_direction>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="1">88e16953dbb19810c6602095ca961928</sp_column>
+        <sp_page/>
+        <sp_widget/>
+        <sys_class_name>sp_instance_vlist</sys_class_name>
+        <sys_created_by>Marc.Mouries</sys_created_by>
+        <sys_created_on>2020-07-09 16:27:22</sys_created_on>
+        <sys_id>40e16953dbb19810c6602095ca96192b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>sp_instance_vlist_40e16953dbb19810c6602095ca96192b</sys_update_name>
+        <sys_updated_by>Marc.Mouries</sys_updated_by>
+        <sys_updated_on>2020-07-09 16:27:22</sys_updated_on>
+        <table/>
+        <title/>
+        <url/>
+        <widget_parameters/>
+    </sp_instance_vlist>
+    <sys_translated_text action="delete_multiple" query="documentkey=40e16953dbb19810c6602095ca96192b"/>
+</record_update>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_action_type_definition">
+    <sys_hub_action_type_definition action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <action_template/>
+        <active>true</active>
+        <annotation/>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description/>
+        <ih_action>false</ih_action>
+        <internal_name>get_audit_findings_description</internal_name>
+        <label_cache/>
+        <latest_snapshot/>
+        <master_snapshot/>
+        <name>Get Audit findings description</name>
+        <natlang/>
+        <outputs/>
+        <state>draft</state>
+        <sys_class_name>sys_hub_action_type_definition</sys_class_name>
+        <sys_created_by>Marc.Mouries</sys_created_by>
+        <sys_created_on>2020-07-15 21:00:26</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>6ee9995ddb06dc10c6602095ca961997</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Get Audit findings description</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Platform Library" source="x_snc_platform_lib">7649f6a4dbf450103405ce1c2996192b</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Platform Library">7649f6a4dbf450103405ce1c2996192b</sys_scope>
+        <sys_update_name>sys_hub_action_type_definition_6ee9995ddb06dc10c6602095ca961997</sys_update_name>
+        <sys_updated_by>Marc.Mouries</sys_updated_by>
+        <sys_updated_on>2020-07-15 21:00:26</sys_updated_on>
+        <system_level>false</system_level>
+        <type/>
+    </sys_hub_action_type_definition>
+    <sys_translated_text action="delete_multiple" query="documentkey=6ee9995ddb06dc10c6602095ca961997"/>
+    <sys_variable_value action="delete_multiple" query="document_key=6ee9995ddb06dc10c6602095ca961997"/>
+</record_update>
